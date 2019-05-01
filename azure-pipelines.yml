@@ -1,0 +1,145 @@
+trigger:
+  tags:
+    include:
+      - v.*
+  branches:
+    include:
+      - develop
+      - master
+      - release
+  paths:
+    exclude:
+      - README.md
+
+pr:
+  - master
+
+variables:
+  repository: 'focal-freedom-236620/controller'
+  type: $(Build.SourceBranchName)
+  commit: $(Build.SourceVersion)
+  controller_tar:
+
+jobs:
+  - job: Platform
+    dependsOn: Controller
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    #    pool: server
+
+    steps:
+      - script: |
+          echo "test"
+        displayName: 'test'
+  #      - task: InvokeRESTAPI@1
+  #        displayName: 'trigger platform job'
+  #        inputs:
+  #          connectionType: 'connectedServiceName'
+  #          serviceConnection: 'Pipelines'
+  #          method: 'POST'
+  #          urlSuffix: '/edgeworx/_apis/build/builds?api-version=5.0'
+  #          body: "{\"Parameters\":\"{\\\"images.controller\\\": \\\"gcr.io/$(repository):dev-$(commit)\\\"}\", \"Definition\":{\"id\":\"5\"}}"
+  #          waitForCompletion: 'false'
+
+  - job: Controller
+    pool:
+      vmImage: 'Ubuntu-16.04'
+
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '8.x'
+        displayName: 'Install Node.js'
+
+      - script: |
+          npm install
+        displayName: 'npm install and build'
+
+      - script: |
+          npm test
+        displayName: 'unit tests'
+
+      - script: |
+          echo "npm test"
+        displayName: 'integration tests'
+
+      - script: |
+          git checkout package-lock.json
+          git config --global user.email "info@edgeworx.io"
+          git config --global user.name "Azure DevOps"
+          npm version prerelease --preid=rc-$(Build.BuildNumber)
+        displayName: 'npm version'
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
+
+      - script: |
+          npm pack
+        displayName: 'npm pack'
+
+      - bash: |
+          echo checking pack file exists..
+          tar=$(ls iofogcontroller-*.tgz)
+          echo $tar
+          echo "##vso[task.setvariable variable=controller_tar]$tar"
+          if($(type)== 'release'); then
+             echo "##vso[task.setvariable variable=type]rc"
+          fi
+        displayName: 'setting vars'
+        name: setcontrollertarvarStep
+
+      - task: Docker@2
+        displayName: 'build dev docker'
+        inputs:
+          containerRegistry: 'Edgeworx GCP'
+          repository: $(repository)
+          command: 'build'
+          Dockerfile: 'Dockerfile.dev'
+          arguments: --build-arg FILENAME=$(controller_tar)
+          tags: |
+            dev-$(commit)
+            dev-$(type)
+            dev-latest
+
+      - task: Docker@2
+        displayName: 'push dev docker'
+        inputs:
+          containerRegistry: 'Edgeworx GCP'
+          repository: $(repository)
+          command: 'push'
+          Dockerfile: 'Dockerfile.dev'
+          tags: |
+            dev-$(commit)
+            dev-$(type)
+            dev-latest
+
+      - script: |
+          echo "npm test"
+        displayName: 'api tests'
+
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: $(System.DefaultWorkingDirectory)
+          TargetFolder: $(Build.ArtifactStagingDirectory)
+          Contents: |
+            *.tgz
+          OverWrite: true
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'controller'
+
+      - task: Npm@1
+        displayName: 'publish dev npm package'
+        inputs:
+          command: 'publish'
+          publishRegistry: 'useFeed'
+          publishFeed: 'dev'
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/'))
+
+      - task: Npm@1
+        displayName: 'publish npm package'
+        inputs:
+          command: 'publish'
+          verbose: true
+          publishEndpoint: 'edgeworx npm'
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
