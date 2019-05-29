@@ -17,6 +17,7 @@ variables:
   group: 'pipelines'
   repository: 'focal-freedom-236620/controller'
   primaryTag: $(Build.SourceBranchName)
+  CLOUD_SDK_REPO:
 
 jobs:
   - job: Platform
@@ -189,7 +190,8 @@ jobs:
 
       - bash: |
           repo=$(echo lsb_release -c -s)
-          echo "##vso[task.setvariable variable=CLOUD_SDK_REPO;isSecret=false;isOutput=true;]cloud-sdk-$repo"
+          echo $repo
+          echo "##vso[task.setvariable variable=CLOUD_SDK_REPO]cloud-sdk-$repo"
         displayName: 'set up sdk repo variable'
 
       - bash: |
