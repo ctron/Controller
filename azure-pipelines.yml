@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - script: |
-            kubectl --version
+          helm version
         displayName: 'push to package cloud'
 
       - task: NodeTool@0
