@@ -189,7 +189,7 @@ jobs:
           secureFile: 'azure-gcp.json'
 
       - bash: |
-          repo=$(echo lsb_release -c -s)
+          repo=$(lsb_release -c -s)
           echo $repo
           echo "##vso[task.setvariable variable=CLOUD_SDK_REPO]cloud-sdk-$repo"
         displayName: 'set up sdk repo variable'
