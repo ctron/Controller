@@ -26,7 +26,6 @@ jobs:
       commit: $[dependencies.Controller.outputs['setvarStep.secondaryTag']]
 
     steps:
-
       - task: InvokeRESTAPI@1
         displayName: 'trigger platform job'
         inputs:
@@ -42,6 +41,10 @@ jobs:
       vmImage: 'Ubuntu-16.04'
 
     steps:
+      - script: |
+            kubectl --version
+        displayName: 'push to package cloud'
+
       - task: NodeTool@0
         inputs:
           versionSpec: '8.x'
