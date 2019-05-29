@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - script: |
-          helm version
+          gcloud
         displayName: 'push to package cloud'
 
       - task: NodeTool@0
