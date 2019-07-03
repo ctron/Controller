@@ -11,6 +11,8 @@
  *
  */
 
+const ipaddr = require('ipaddr.js')
+
 const AgentService = require('../services/agent-service')
 const AuthDecorator = require('../decorators/authorization-decorator')
 
@@ -42,6 +44,18 @@ const getAgentConfigChangesEndPoint = async function(req, fog) {
 
 const updateAgentStatusEndPoint = async function(req, fog) {
   const agentStatus = req.body
+  const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+  let externalIp = ''
+  if (ipaddr.IPv4.isValid(ip)) {
+    externalIp = ip
+  } else if (ipaddr.IPv6.isValid(ip)) {
+    const ipv6 = ipaddr.IPv6.parse(ip);
+    if (ipv6.isIPv4MappedAddress()) {
+      externalIp = ipv6.toIPv4Address().toString()
+    } else {
+      externalIp = ip
+    }
+  }
 
   return await AgentService.updateAgentStatus(agentStatus, fog)
 }
