@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('MicroserviceStatuses', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('MicroserviceStatuses', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -45,7 +45,7 @@ module.exports = {
       }
     })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('MicroserviceStatuses')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('MicroserviceStatuses')
   }
 }

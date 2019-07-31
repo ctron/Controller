@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('FogAccessTokens', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('FogAccessTokens', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -31,7 +31,7 @@ module.exports = {
       }
     })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('FogAccessTokens')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('FogAccessTokens')
   }
 }

@@ -1,11 +1,11 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.renameColumn('MicroservicePorts', 'updated_by', 'user_id')
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.renameColumn('MicroservicePorts', 'updated_by', 'user_id')
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.renameColumn('MicroservicePorts', 'user_id', 'updated_by')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.renameColumn('MicroservicePorts', 'user_id', 'updated_by')
   }
 }

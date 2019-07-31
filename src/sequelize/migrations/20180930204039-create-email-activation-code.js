@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('EmailActivationCodes', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('EmailActivationCodes', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -25,7 +25,7 @@ module.exports = {
       }
     })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('EmailActivationCodes')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('EmailActivationCodes')
   }
 }

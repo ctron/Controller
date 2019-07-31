@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('CatalogItemInputTypes', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('CatalogItemInputTypes', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -25,7 +25,7 @@ module.exports = {
       }
     })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('CatalogItemInputTypes')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('CatalogItemInputTypes')
   }
 }

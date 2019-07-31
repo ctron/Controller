@@ -3,7 +3,6 @@
     "dialect": "sqlite",
     "storage": "dev_database.sqlite",
     "logging": false,
-    "operatorsAliases": false,
     "transactionType": "DEFERRED",
     "retry": {
       "match": [
@@ -22,7 +21,6 @@
     "dialect": "sqlite",
     "storage": "test_database.sqlite",
     "logging": false,
-    "operatorsAliases": false,
     "transactionType": "DEFERRED",
     "retry": {
       "match": [
@@ -41,7 +39,6 @@
     "dialect": "sqlite",
     "storage": "prod_database.sqlite",
     "logging": false,
-    "operatorsAliases": false,
     "transactionType": "DEFERRED",
     "retry": {
       "match": [

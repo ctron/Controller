@@ -1,14 +1,14 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Microservices',
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('Microservices',
       'delete',
       Sequelize.BOOLEAN
     )
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Microservices', 'delete')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('Microservices', 'delete')
   }
 }

@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('FogProvisionKeys', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('FogProvisionKeys', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -26,7 +26,7 @@ module.exports = {
       }
     })
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('FogProvisionKeys')
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('FogProvisionKeys')
   }
 }

@@ -1,12 +1,12 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Flows', 'updated_by')
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('Flows', 'updated_by')
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Flows',
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('Flows',
       'updated_by',
       Sequelize.INTEGER
     )
