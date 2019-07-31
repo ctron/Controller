@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   Microservice.associate = function (models) {
     Microservice.belongsTo(models.CatalogItem, {

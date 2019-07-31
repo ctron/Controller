@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   EmailActivationCode.associate = function (models) {
     EmailActivationCode.belongsTo(models.User, {

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   Flow.associate = function (models) {
     Flow.belongsTo(models.User, {

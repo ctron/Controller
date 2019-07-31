@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     // add the timestamp attributes (updatedAt, createdAt)
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   MicroserviceStatus.associate = function (models) {
     MicroserviceStatus.belongsTo(models.Microservice, {

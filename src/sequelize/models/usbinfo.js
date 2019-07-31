@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     // add the timestamp attributes (updatedAt, createdAt)
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   USBInfo.associate = function (models) {
     USBInfo.belongsTo(models.Fog, {

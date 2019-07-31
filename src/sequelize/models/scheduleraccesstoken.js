@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   SchedulerAccessToken.associate = function (models) {
     SchedulerAccessToken.belongsTo(models.User, {

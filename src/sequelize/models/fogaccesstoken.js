@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   FogAccessToken.associate = function (models) {
     FogAccessToken.belongsTo(models.User, {

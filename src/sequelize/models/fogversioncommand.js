@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   FogVersionCommand.associate = function (models) {
     FogVersionCommand.belongsTo(models.Fog, {

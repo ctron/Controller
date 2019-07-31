@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   Registry.associate = function (models) {
     Registry.belongsTo(models.User, {

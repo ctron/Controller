@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   KubeletAccessToken.associate = function (models) {
     KubeletAccessToken.belongsTo(models.User, {

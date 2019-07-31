@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   TrackingEvent.associate = function (models) {
     // associations can be defined here

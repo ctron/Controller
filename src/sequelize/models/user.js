@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   User.associate = function (models) {
     User.hasOne(models.AccessToken, {

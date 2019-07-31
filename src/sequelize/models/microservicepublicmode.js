@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   MicroservicePublicMode.associate = function (models) {
     MicroservicePublicMode.belongsTo(models.Microservice, {

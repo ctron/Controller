@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   VolumeMapping.associate = function (models) {
     VolumeMapping.belongsTo(models.Microservice, {

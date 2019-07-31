@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   Routing.associate = function (models) {
     Routing.belongsTo(models.Microservice, {

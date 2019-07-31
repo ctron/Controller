@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   MicroservicePort.associate = function (models) {
     MicroservicePort.belongsTo(models.Microservice, {

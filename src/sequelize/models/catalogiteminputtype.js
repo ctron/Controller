@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   CatalogItemInputType.associate = function (models) {
     CatalogItemInputType.belongsTo(models.CatalogItem, {

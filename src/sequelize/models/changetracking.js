@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   ChangeTracking.associate = function (models) {
     ChangeTracking.belongsTo(models.Fog, {

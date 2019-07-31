@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   StraceDiagnostics.associate = function (models) {
     StraceDiagnostics.belongsTo(models.Microservice, {

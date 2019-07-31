@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: true,
-    underscored: true
+    underscored: false
   })
   ConnectorPort.associate = function (models) {
     ConnectorPort.belongsTo(models.Connector, {

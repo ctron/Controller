@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   FogType.associate = function (models) {
     FogType.belongsTo(models.CatalogItem, {

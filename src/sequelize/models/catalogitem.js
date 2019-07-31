@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    underscored: true
+    underscored: false
   })
   CatalogItem.associate = function (models) {
     CatalogItem.belongsTo(models.Registry, {
