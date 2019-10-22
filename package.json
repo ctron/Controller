@@ -36,7 +36,8 @@
   },
   "scripts": {
     "x-prestart": "npm run lint",
-    "start": "node scripts/scripts-api.js start",
+    "x-start": "node scripts/scripts-api.js start",
+    "start": "node src/server.js",
     "prestart-dev": "npm run lint",
     "start-dev": "node scripts/scripts-api.js start-dev",
     "prebuild": "npm run lint",
