@@ -77,6 +77,7 @@ const setupMiddleware = function(routeName) {
   routes.forEach(registerRoute)
 }
 
+logger.info("Dir: ", __dirname)
 fs.readdirSync(path.join(__dirname, 'routes'))
     .forEach(setupMiddleware)
 
