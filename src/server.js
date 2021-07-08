@@ -41,7 +41,7 @@ const TrackingEventType = require('./enums/tracking-event-type')
 
 Sentry.init({ dsn: 'https://a15f11352d404c2aa4c8f321ad9e759a@sentry.io/1378602' })
 Sentry.configureScope((scope) => {
-  scope.setExtra('version', packageJson.version)
+  scope.setExtra('version', packageJson.version + "-drogue-iot")
 })
 
 app.use(Sentry.Handlers.requestHandler())
@@ -166,7 +166,7 @@ function startHttpsServer (apps, ports, sslKey, sslCert, intermedKey, jobs) {
 }
 
 const devMode = config.get('Server:DevMode')
-const apiPort = config.get('Server:Port')
+const apiPort = +(config.get('Server:Port'))
 const viewerPort = +(process.env.VIEWER_PORT || config.get('Viewer:Port'))
 const sslKey = config.get('Server:SslKey')
 const sslCert = config.get('Server:SslCert')
@@ -189,8 +189,9 @@ const initState = async () => {
     // Store PID to let deamon know we are running.
     jobs.push({
       run: () => {
-        const pidFile = path.join(__dirname, 'iofog-controller.pid')
-        fs.writeFileSync(pidFile, process.pid)
+        const pidFile = path.join((process.env.PID_BASE || __dirname), 'iofog-controller.pid')
+        logger.info(`==> PID file: ${pidFile}`)
+        fs.writeFileSync(pidFile, "" + process.pid)
       }
     })
   }
